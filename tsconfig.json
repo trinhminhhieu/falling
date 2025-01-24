@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es5", // Chuyển mã thành ES5 để tương thích rộng rãi
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "module": "esnext", // Sử dụng module ESNext cho code hiện đại
+    "moduleResolution": "node", // Hỗ trợ kiểu module Node.js
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+
+    //  "jsx": "react", // Đổi từ "preserve" thành "react" để xuất JSX thành React.createElement
+    "outDir": "./dist", // Tạo file build trong thư mục dist
+    "declaration": true, // Tạo file định nghĩa .d.ts để hỗ trợ kiểm tra kiểu
+    "sourceMap": true, // Tạo file map để debug dễ dàng
+    "removeComments": true, // Xóa comment trong file build
+    "incremental": true
+  },
+  "include": ["src"], // Bao gồm tất cả file trong thư mục src
+  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"] // Loại bỏ node_modules và file test
+}
