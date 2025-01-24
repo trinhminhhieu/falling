@@ -1,12 +1,10 @@
-![Falling Demo](./assets/apricotblossom.gif)
-![Falling Demo](./assets/peachblossom.gif)
-
 # Falling
 
 [![npm](https://img.shields.io/npm/v/falling.svg)](https://www.npmjs.com/package/falling)
-[![GitHub stars](https://img.shields.io/github/stars/cahilfoley/falling.svg)](https://github.com/trinhminhhieu/falling)
+[![GitHub stars](https://img.shields.io/github/stars/trinhminhhieu/falling.svg)](https://github.com/trinhminhhieu/falling)
 
-# Falling
+![Falling Demo](https://raw.githubusercontent.com/trinhminhhieu/falling/master/assets/apricotblossom.gif)
+![Falling Demo](https://raw.githubusercontent.com/trinhminhhieu/falling/master/assets/peachblossom.gif)
 
 A customizable falling animation
 
@@ -16,31 +14,50 @@ A customizable falling animation
 npm install falling
 ```
 
-### Include install
-
 ```bash
-npm install three
+yarn add falling
 ```
 
 ## Usage
 
 ```jsx
+<Falling
+  flowerCount={50}
+  flowerImage="/custom-flower.png"
+  fallSpeed={-3}
+  spreadWidth={2000}
+  spreadHeight={2000}
+  colors={["#FF0000", "#00FF00", "#0000FF"]}
+/>
+```
+
+## Example
+
+```jsx
+//Nextjs - pages/index.js
+
+"use client";
+import React from "react";
 import Falling from "falling";
 
-function App() {
+const FallingDemo = () => {
   return (
-    <div>
-      <Falling
-        flowerCount={50}
-        flowerImage="/custom-flower.png"
-        fallSpeed={-3}
-        spreadWidth={2000}
-        spreadHeight={2000}
-        colors={["#FF0000", "#00FF00", "#0000FF"]}
-      />
+    <div
+      className="bg-purple-100"
+      style={{
+        backgroundColor: "#000",
+        width: "100%",
+        height: "100vh",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <Falling flowerCount={50} flowerImage="/flow.png" fallSpeed={-3} />
     </div>
   );
-}
+};
+
+export default FallingDemo;
 ```
 
 ## Props

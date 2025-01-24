@@ -1,7 +1,7 @@
 import React, { Component, createRef } from "react";
 import * as THREE from "three";
 
-// Định nghĩa kiểu cho props của component
+
 interface FallingProps {
   flowerCount?: number;
   flowerImage?: string;
@@ -11,13 +11,13 @@ interface FallingProps {
   colors?: string[];
 }
 
-// Định nghĩa kiểu cho particle hoa
+
 class FlowerParticle {
   sprite: THREE.Sprite;
   velocity: THREE.Vector3;
 
   constructor(material: THREE.SpriteMaterial, fallSpeed: number) {
-    this.sprite = new THREE.Sprite(material); // Tạo đối tượng Sprite
+    this.sprite = new THREE.Sprite(material); 
     this.velocity = new THREE.Vector3(
       Math.random() * 2 - 1,
       fallSpeed,
@@ -29,7 +29,6 @@ class FlowerParticle {
     this.sprite.material.rotation += (Math.random() - 0.5) * 0.1;
     this.sprite.position.add(this.velocity);
 
-    // Reset vị trí nếu hoa rơi ra ngoài màn hình
     if (this.sprite.position.y < -spreadHeight / 2) {
       this.sprite.position.y = spreadHeight / 2;
       this.sprite.position.x = Math.random() * spreadWidth - spreadWidth / 2;
@@ -66,12 +65,14 @@ class Falling extends Component<FallingProps> {
     this.cleanup();
   }
 
-  // Khởi tạo scene, camera và renderer
+
   initScene() {
     const SCREEN_WIDTH = window.innerWidth;
     const SCREEN_HEIGHT = window.innerHeight;
-
+  
     this.scene = new THREE.Scene();
+  
+    // Khởi tạo camera
     this.camera = new THREE.PerspectiveCamera(
       75,
       SCREEN_WIDTH / SCREEN_HEIGHT,
@@ -79,17 +80,22 @@ class Falling extends Component<FallingProps> {
       10000
     );
     this.camera.position.z = 1000;
-
+  
+    // Khởi tạo renderer với alpha để hỗ trợ nền trong suốt
     this.renderer = new THREE.WebGLRenderer({ alpha: true });
     this.renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-
+  
+    // Đảm bảo renderer không tô màu nền
+    this.renderer.setClearColor(0x000000, 0); // 0 là trong suốt
+  
     if (this.containerRef.current) {
       this.containerRef.current.innerHTML = "";
       this.containerRef.current.appendChild(this.renderer.domElement);
     }
   }
+  
 
-  // Tạo các bông hoa và thêm vào scene
+ 
   createFlowers() {
     const {
       flowerCount,
@@ -109,12 +115,13 @@ class Falling extends Component<FallingProps> {
         map: flowerTexture,
         color: colors![Math.floor(Math.random() * colors!.length)],
         rotation: Math.random() * Math.PI * 2,
+        transparent: true, 
       });
 
-      // Sửa đổi phương thức `createFlowers`:
+      
       const particle = new FlowerParticle(material, fallSpeed!);
 
-      // Đặt vị trí và scale thông qua `sprite`
+      
       particle.sprite.position.set(
         Math.random() * spreadWidth! - spreadWidth! / 2,
         Math.random() * spreadHeight! - spreadHeight! / 2,
@@ -122,7 +129,7 @@ class Falling extends Component<FallingProps> {
       );
       particle.sprite.scale.set(50, 50, 50);
 
-      // Thêm vào scene và danh sách particles
+    
       this.scene.add(particle.sprite);
       this.particles.push(particle);
     }
@@ -143,7 +150,7 @@ class Falling extends Component<FallingProps> {
     this.renderer.render(this.scene, this.camera);
   };
 
-  // Dọn dẹp tài nguyên khi component bị hủy
+ 
   cleanup() {
     if (this.animationId) {
       cancelAnimationFrame(this.animationId);
@@ -171,6 +178,7 @@ class Falling extends Component<FallingProps> {
           height: "100%",
           zIndex: 9999,
           pointerEvents: "none",
+          backgroundColor: 'transparent',
         }}
       />
     );
