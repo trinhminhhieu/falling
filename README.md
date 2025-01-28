@@ -8,6 +8,8 @@
 
 A customizable falling animation
 
+- [Demo](https://falling-demo-2lhb.vercel.app/)
+
 ## Installation
 
 ```bash
